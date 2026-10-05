@@ -68,7 +68,7 @@ import com.airbnb.lottie.LottieAnimationView
 import org.uwuaosp.compose.settingslib.MainSwitchPreference
 import org.uwuaosp.compose.settingslib.PrimarySwitchPreferenceRow
 import org.uwuaosp.compose.settingslib.PreferenceRow
-import org.uwuaosp.compose.settingslib.SettingsHomepageIcon
+import org.uwuaosp.settingsext.util.SettingsHomepageIcon
 import org.uwuaosp.compose.settingslib.SettingsScaffold
 import org.uwuaosp.compose.settingslib.SettingsSection
 import org.uwuaosp.compose.settingslib.SettingsToolbarActionButton

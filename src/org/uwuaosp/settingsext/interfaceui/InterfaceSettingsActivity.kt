@@ -44,7 +44,7 @@ import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
 import org.uwuaosp.compose.settingslib.PreferenceRow
 import org.uwuaosp.compose.settingslib.SettingsFooterLegacy
-import org.uwuaosp.compose.settingslib.SettingsHomepageIcon
+import org.uwuaosp.settingsext.util.SettingsHomepageIcon
 import org.uwuaosp.compose.settingslib.SettingsScaffold
 import org.uwuaosp.compose.settingslib.SettingsSection
 import org.uwuaosp.settingsext.R
