@@ -28,6 +28,8 @@
     <string name="settings_ext_lyric_fetch_title">状态栏歌词</string>
     <string name="settings_ext_ai_core_title">uwuAI Core</string>
     <string name="interface_settings_title">界面设置</string>
+    <string name="qs_style_title">圆形磁贴样式</string>
+    <string name="qs_style_summary">快速设置与快捷面板使用圆形磁贴，快捷面板为五列布局</string>
     <string name="interface_settings_category_fonts">字体</string>
     <string name="custom_font_title">自定义字体</string>
     <string name="custom_font_summary_default">系统默认</string>

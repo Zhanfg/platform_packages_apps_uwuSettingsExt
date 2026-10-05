@@ -65,6 +65,7 @@ import org.uwuaosp.settingsext.lyric.LyricSecureSettings
 import org.uwuaosp.settingsext.lyric.LyricSettingsActivity
 import org.uwuaosp.settingsext.moment.MomentSecureSettings
 import org.uwuaosp.settingsext.moment.MomentSettingsActivity
+import org.uwuaosp.settingsext.qsstyle.QSStyleSecureSettings
 import org.uwuaosp.settingsext.smartsuggestions.SmartSuggestionsSettingsActivity
 import org.uwuaosp.settingsext.sensors.SensorPolicyActivity
 import org.uwuaosp.settingsext.util.FeatureUtils
@@ -133,6 +134,9 @@ private fun SettingsExtHomeScreen(onNavigateUp: () -> Unit) {
     var externalDesktopEnabled by remember {
         mutableStateOf(ExternalDesktopSecureSettings.isEnabled(context))
     }
+    var qsStyleCircular by remember {
+        mutableStateOf(QSStyleSecureSettings.isCircular(context))
+    }
     val momentSettingsLauncher = rememberLauncherForActivityResult(
         ActivityResultContracts.StartActivityForResult(),
     ) {
@@ -182,6 +186,26 @@ private fun SettingsExtHomeScreen(onNavigateUp: () -> Unit) {
             },
             onClick = {
                 context.startActivity(Intent(context, InterfaceSettingsActivity::class.java))
+            },
+                )
+            }
+            item {
+                PrimarySwitchPreferenceRow(
+            title = stringResource(R.string.qs_style_title),
+            summary = "",
+            showSummary = false,
+            checked = qsStyleCircular,
+            onCheckedChange = { enabled ->
+                qsStyleCircular = enabled
+                QSStyleSecureSettings.setCircular(context, enabled)
+            },
+            onClick = {
+                val enabled = !qsStyleCircular
+                qsStyleCircular = enabled
+                QSStyleSecureSettings.setCircular(context, enabled)
+            },
+            iconContent = {
+                SettingsHomepageIcon(iconRes = R.drawable.ic_qs_style)
             },
                 )
             }
