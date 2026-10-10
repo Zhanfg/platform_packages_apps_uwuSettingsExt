@@ -24,6 +24,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.DefaultLifecycleObserver;
+import androidx.lifecycle.LifecycleOwner;
 
 import org.uwuaosp.settingsext.R;
 
@@ -32,7 +34,8 @@ final class AppJumpSearchUtils {
     }
 
     static SearchView addSearchMenuItem(@NonNull MenuInflater inflater, @NonNull Menu menu,
-            @NonNull AppJumpPolicyBackend backend, @NonNull CharSequence hint,
+            @NonNull LifecycleOwner viewLifecycleOwner, @NonNull AppJumpPolicyBackend backend,
+            @NonNull CharSequence hint,
             @Nullable String currentQuery,
             @NonNull SearchView.OnQueryTextListener listener) {
         inflater.inflate(org.uwuaosp.settingsext.R.menu.app_jump_search, menu);
@@ -47,6 +50,14 @@ final class AppJumpSearchUtils {
         final SearchView searchView = (SearchView) searchItem.getActionView();
         searchView.setQueryHint(hint);
         searchView.setOnQueryTextListener(listener);
+        // Menu teardown can collapse the search view after the fragment has detached.
+        viewLifecycleOwner.getLifecycle().addObserver(new DefaultLifecycleObserver() {
+            @Override
+            public void onDestroy(@NonNull LifecycleOwner owner) {
+                searchView.setOnQueryTextListener(null);
+                owner.getLifecycle().removeObserver(this);
+            }
+        });
         searchView.setMaxWidth(Integer.MAX_VALUE);
         final int searchTextId = searchView.getContext().getResources().getIdentifier(
                 "search_src_text", "id", "android");

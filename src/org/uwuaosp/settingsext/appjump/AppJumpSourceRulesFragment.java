@@ -91,7 +91,7 @@ public class AppJumpSourceRulesFragment extends SettingsBasePreferenceFragment {
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        AppJumpSearchUtils.addSearchMenuItem(inflater, menu, mBackend,
+        AppJumpSearchUtils.addSearchMenuItem(inflater, menu, getViewLifecycleOwner(), mBackend,
                 getString(R.string.app_jump_search_title), mSearchQuery,
                 new SearchView.OnQueryTextListener() {
             @Override
@@ -144,6 +144,9 @@ public class AppJumpSourceRulesFragment extends SettingsBasePreferenceFragment {
     }
 
     private void applyFilter() {
+        if (!isAdded() || getView() == null) {
+            return;
+        }
         final List<AppJumpPolicyBackend.AppEntry> entries;
         if (mSearchQuery == null || mSearchQuery.trim().isEmpty()) {
             entries = new ArrayList<>(mAllEntries);
