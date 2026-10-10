@@ -19,9 +19,15 @@ package org.uwuaosp.settingsext.util
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.res.colorResource
+import com.google.android.material.color.utilities.Blend
+import com.google.android.material.color.utilities.TonalPalette
 import org.uwuaosp.settingsext.R
 import com.google.android.material.R as MaterialR
 import org.uwuaosp.compose.settingslib.SettingsHomepageIcon as ComposeSettingsHomepageIcon
@@ -31,63 +37,38 @@ internal fun SettingsHomepageIcon(
     @DrawableRes iconRes: Int,
     modifier: Modifier = Modifier,
 ) {
-    val palette = homepageIconPalette(iconRes)
+    val designColor = colorResource(homepageIconPalette(iconRes).seed).toArgb()
+    val themeColor = MaterialTheme.colorScheme.primary.toArgb()
     val darkTheme = isSystemInDarkTheme()
+    // Google's harmonization limits the hue shift to 15 degrees, retaining category colors.
+    val palette = remember(designColor, themeColor) {
+        TonalPalette.fromInt(Blend.harmonize(designColor, themeColor))
+    }
+    val backgroundColor = remember(palette, darkTheme) {
+        Color(palette.tone(if (darkTheme) 80 else 90))
+    }
+    val foregroundColor = remember(palette) { Color(palette.tone(30)) }
 
     ComposeSettingsHomepageIcon(
         iconRes = iconRes,
         modifier = modifier,
-        backgroundColor = colorResource(if (darkTheme) palette.darkBackground else palette.background),
-        foregroundColor = colorResource(palette.foreground),
+        backgroundColor = backgroundColor,
+        foregroundColor = foregroundColor,
     )
 }
 
-// Use the same fixed reference colors as Settings' homepage icons.
+// Settings' reference colors remain the seeds; Monet only harmonizes their hue and tones.
 private enum class HomepageIconPalette(
-    @ColorRes val foreground: Int,
-    @ColorRes val background: Int,
-    @ColorRes val darkBackground: Int,
+    @ColorRes val seed: Int,
 ) {
-    Orange(
-        MaterialR.color.m3_ref_palette_orange30,
-        MaterialR.color.m3_ref_palette_orange90,
-        MaterialR.color.m3_ref_palette_orange80,
-    ),
-    Green(
-        MaterialR.color.m3_ref_palette_green30,
-        MaterialR.color.m3_ref_palette_green90,
-        MaterialR.color.m3_ref_palette_green80,
-    ),
-    Cyan(
-        MaterialR.color.m3_ref_palette_cyan30,
-        MaterialR.color.m3_ref_palette_cyan90,
-        MaterialR.color.m3_ref_palette_cyan80,
-    ),
-    Pink(
-        MaterialR.color.m3_ref_palette_pink30,
-        MaterialR.color.m3_ref_palette_pink90,
-        MaterialR.color.m3_ref_palette_pink80,
-    ),
-    Purple(
-        MaterialR.color.m3_ref_palette_purple30,
-        MaterialR.color.m3_ref_palette_purple90,
-        MaterialR.color.m3_ref_palette_purple80,
-    ),
-    BlueVariant(
-        MaterialR.color.m3_ref_palette_blue_variant30,
-        MaterialR.color.m3_ref_palette_blue_variant90,
-        MaterialR.color.m3_ref_palette_blue_variant80,
-    ),
-    Blue(
-        MaterialR.color.m3_ref_palette_blue30,
-        MaterialR.color.m3_ref_palette_blue90,
-        MaterialR.color.m3_ref_palette_blue80,
-    ),
-    Yellow(
-        MaterialR.color.m3_ref_palette_yellow30,
-        MaterialR.color.m3_ref_palette_yellow90,
-        MaterialR.color.m3_ref_palette_yellow80,
-    ),
+    Orange(MaterialR.color.m3_ref_palette_orange40),
+    Green(MaterialR.color.m3_ref_palette_green40),
+    Cyan(MaterialR.color.m3_ref_palette_cyan40),
+    Pink(MaterialR.color.m3_ref_palette_pink40),
+    Purple(MaterialR.color.m3_ref_palette_purple40),
+    BlueVariant(MaterialR.color.m3_ref_palette_blue_variant40),
+    Blue(MaterialR.color.m3_ref_palette_blue40),
+    Yellow(MaterialR.color.m3_ref_palette_yellow40),
 }
 
 private fun homepageIconPalette(@DrawableRes iconRes: Int): HomepageIconPalette = when (iconRes) {
