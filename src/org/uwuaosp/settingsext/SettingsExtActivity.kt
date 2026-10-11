@@ -44,6 +44,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -121,6 +122,14 @@ internal fun SettingsExtTheme(content: @Composable () -> Unit) {
 @Composable
 private fun SettingsExtHomeScreen(onNavigateUp: () -> Unit) {
     val context = LocalContext.current
+    // Hero artwork should not dominate the first screen on compact-width devices.
+    // Use logical dp width rather than assuming a physical pixel density.
+    val screenWidthDp = LocalConfiguration.current.screenWidthDp
+    val illustrationHeight = when {
+        screenWidthDp < 360 -> 136.dp
+        screenWidthDp < 400 -> 156.dp
+        else -> 180.dp
+    }
     val preferences = remember(context) {
         context.getSharedPreferences(SETTINGS_EXT_PREFS, MODE_PRIVATE)
     }
@@ -168,7 +177,7 @@ private fun SettingsExtHomeScreen(onNavigateUp: () -> Unit) {
                     }
                 }
             },
-            height = 180.dp,
+            height = illustrationHeight,
         )
 
         SettingsSection(title = stringResource(R.string.settings_ext_category_system_interface)) {

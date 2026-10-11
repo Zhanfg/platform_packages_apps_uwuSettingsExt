@@ -73,10 +73,11 @@ private fun InterfaceSettingsScreen(onNavigateUp: () -> Unit) {
     val scope = rememberCoroutineScope()
     val resolver = context.contentResolver
     fun isGestureNavigation() =
-        Settings.Secure.getInt(
-            resolver,
-            Settings.Secure.NAVIGATION_MODE,
-            context.resources.getInteger(com.android.internal.R.integer.config_navBarInteractionMode),
+        // The active framework overlay is authoritative for navigation layout.
+        // NavigationModeController persists NAVIGATION_MODE asynchronously, so
+        // relying on the Secure cache can wrongly disable this switch.
+        context.resources.getInteger(
+            com.android.internal.R.integer.config_navBarInteractionMode,
         ) == 2
     var gestureNavigation by remember(context) { mutableStateOf(isGestureNavigation()) }
     var hideGestureHandle by remember(context) {

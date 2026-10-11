@@ -1,0 +1,32 @@
+name: uwuSettingsExt Compact UI QA
+
+on:
+  push:
+    branches: ["fix/**"]
+    paths:
+      - "src/org/uwuaosp/settingsext/SettingsExtActivity.kt"
+      - "tools/qa/test_responsive_header.py"
+      - ".github/workflows/settingsext-responsive-header-qa.yml"
+  pull_request:
+    paths:
+      - "src/org/uwuaosp/settingsext/SettingsExtActivity.kt"
+      - "tools/qa/test_responsive_header.py"
+      - ".github/workflows/settingsext-responsive-header-qa.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  source-regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          filter: blob:none
+          sparse-checkout: |
+            src/org/uwuaosp/settingsext/SettingsExtActivity.kt
+            tools/qa/test_responsive_header.py
+          sparse-checkout-cone-mode: false
+      - name: Check compact header breakpoints
+        run: python3 -m unittest discover -s tools/qa -p "test_responsive_header.py" -v
