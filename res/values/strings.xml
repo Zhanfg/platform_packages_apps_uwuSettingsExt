@@ -120,10 +120,13 @@
     <string name="moment_section_experience">Launch and experience</string>
     <string name="moment_notification_section">Notification opening</string>
     <string name="moment_settings_title">Moment</string>
-    <string name="moment_tutorial_fullscreen_title">Expand to full screen</string>
-    <string name="moment_tutorial_fullscreen_description">Double-tap the navigation handle at the bottom of a Moment to open it full screen</string>
-    <string name="moment_tutorial_close_title">Close Moment</string>
-    <string name="moment_tutorial_close_description">Touch and hold the navigation handle at the bottom of a Moment to close it</string>
+    <string name="moment_tutorial_fullscreen_description">Double-tap the handle for full screen</string>
+    <string name="moment_tutorial_close_description">Hold the handle to close</string>
+    <string name="moment_tutorial_unavailable">Animation unavailable</string>
+    <string name="moment_tutorial_move_description">Drag the handle to move</string>
+    <string name="moment_tutorial_resize_description">Drag a corner to resize</string>
+    <string name="moment_tutorial_compact_description">Shrink to park; tap the preview to restore</string>
+    <string name="moment_tutorial_back_description">Tap the handle to go back</string>
     <string name="moment_enabled_title">Enable Moment</string>
     <string name="moment_nav_handle_double_tap_title">Double tap for Moment</string>
     <string name="moment_nav_handle_double_tap_summary">Enter Moment by double-tapping the navigation handle</string>

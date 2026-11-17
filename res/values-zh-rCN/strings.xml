@@ -117,10 +117,13 @@
     <string name="moment_section_experience">启动与体验</string>
     <string name="moment_notification_section">通知打开</string>
     <string name="moment_settings_title">Moment</string>
-    <string name="moment_tutorial_fullscreen_title">展开到全屏</string>
-    <string name="moment_tutorial_fullscreen_description">双击 Moment 底部的小白条，将小窗展开到全屏</string>
-    <string name="moment_tutorial_close_title">关闭 Moment</string>
-    <string name="moment_tutorial_close_description">长按 Moment 底部的小白条，关闭小窗</string>
+    <string name="moment_tutorial_fullscreen_description">双击底部横条，展开到全屏</string>
+    <string name="moment_tutorial_close_description">长按底部横条，关闭小窗</string>
+    <string name="moment_tutorial_unavailable">动画暂时无法加载</string>
+    <string name="moment_tutorial_move_description">拖动底部横条，移动小窗</string>
+    <string name="moment_tutorial_resize_description">拖动窗口一角，调整大小</string>
+    <string name="moment_tutorial_compact_description">缩小贴边暂存，点击预览恢复</string>
+    <string name="moment_tutorial_back_description">单击底部横条，返回上一页</string>
     <string name="moment_enabled_title">启用 Moment</string>
     <string name="moment_nav_handle_double_tap_title">双击进入 Moment</string>
     <string name="moment_nav_handle_double_tap_summary">双击导航栏小白条进入 Moment</string>
